@@ -54,10 +54,10 @@ Specifically, it is very easy to set up a Tornjak secured by Keycloak today, by 
     Alternatively, we can do the same on the containerized version:
 
     ```
-    docker run -p 3000:3000 -d -e REACT_APP_API_SERVER_URI='http://localhost:10000' -e REACT_APP_AUTH_SERVER_URI='http://localhost:8080' tsidentity/tornjak-fe:latest
+    docker run -p 3000:3000 -d -e REACT_APP_API_SERVER_URI='http://localhost:10000' -e REACT_APP_AUTH_SERVER_URI='http://localhost:10000' ghcr.io/spiffe/tornjak-frontend:v1.2.0
     ```
 
-This will start a Tornjak server on `http://localhost:3000`
+This will start a Tornjak Frontend component at `http://localhost:3000`
 
 Please be patient, as it might take a few minutes to compile and start the server.
 
