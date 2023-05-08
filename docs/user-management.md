@@ -34,37 +34,34 @@ We have experimented extensively with the open source Keycloak Auth Server.
 Specifically, it is very easy to set up a Tornjak secured by Keycloak today, by following these steps: 
 
 1. Configure Auth Server
-To configure the Auth Server, please see our [Medium blog](https://medium.com/universal-workload-identity/step-by-step-guide-to-setup-keycloak-configuration-for-tornjak-dbe5c3049034) for a walkthrough on configuring the Auth Server. For more in-depth documentation on this setup, please see [this document on Keycloak configuration](./keycloak-configuration.md).
+
+    To configure the Auth Server, please see our [Medium blog](https://medium.com/universal-workload-identity/step-by-step-guide-to-setup-keycloak-configuration-for-tornjak-dbe5c3049034) for a walkthrough on configuring the Auth Server. For more in-depth documentation on this setup, please see [this document on Keycloak configuration](./keycloak-configuration.md).
 
 1. Enable User Management for Tornjak Backend
-Once the Auth Server is set up, we can deploy the Tornjak Backend to require access tokens from our Auth Server, 
-as detailed in 
-[this followup Medium blog](https://medium.com/universal-workload-identity/guide-to-integrating-tornjak-with-keycloak-for-access-control-to-spire-40a3d5ee5f5a), 
-with more details on the general configuration 
-[here](https://github.com/spiffe/tornjak/blob/main/docs/config-tornjak-agent.md). 
+
+    Once the Auth Server is set up, we can deploy the Tornjak Backend to require access tokens from our Auth Server, as detailed in [this followup Medium blog](https://medium.com/universal-workload-identity/guide-to-integrating-tornjak-with-keycloak-for-access-control-to-spire-40a3d5ee5f5a), with more details on the general configuration [here](https://github.com/spiffe/tornjak/blob/main/docs/config-tornjak-agent.md). 
 
 1. Configure Tornjak Frontend
-Finally, the Frontend must be deployed and configured to obtain access tokens from this auth server. 
-This can be done locally with the environment variable 
-`REACT_APP_AUTH_SERVER_URI`:
 
-```
-cd tornjak-frontend
-REACT_APP_API_SERVER_URI=http://localhost:10000/
-REACT_APP_AUTH_SERVER_URI=http://localhost:8080/ npm start
-```
+    Finally, the Frontend must be deployed and configured to obtain access tokens from this auth server. This can be done locally with the environment variable `REACT_APP_AUTH_SERVER_URI`:
 
-Alternatively, we can do the same on the containerized version:
+    ```
+    cd tornjak-frontend
+    REACT_APP_API_SERVER_URI=http://localhost:10000/
+    REACT_APP_AUTH_SERVER_URI=http://localhost:8080/ npm start
+    ```
 
-```
-docker run -p 3000:3000 -d -e REACT_APP_API_SERVER_URI='http://localhost:10000' -e REACT_APP_AUTH_SERVER_URI='http://localhost:8080' tsidentity/tornjak-fe:latest
-```
+    Alternatively, we can do the same on the containerized version:
+
+    ```
+    docker run -p 3000:3000 -d -e REACT_APP_API_SERVER_URI='http://localhost:10000' -e REACT_APP_AUTH_SERVER_URI='http://localhost:8080' tsidentity/tornjak-fe:latest
+    ```
 
 This will start a Tornjak server on `http://localhost:3000`
+
 Please be patient, as it might take a few minutes to compile and start the server.
 
 For a cloud deployment change the URLs accordingly using the cloud provider ingress.
 
-Given the Auth Server configuration above, we have `an admin` and `a viewer` user type. 
-An Admin User has an admin level privileges allowing create, configure, and delete operations. 
+Given the Auth Server configuration above, we have `an admin` and `a viewer` user type. An Admin User has an admin level privileges allowing create, configure, and delete operations. 
 The Viewer User has a restricted access for the Tornjak UI, allowing only read and list operations.  
